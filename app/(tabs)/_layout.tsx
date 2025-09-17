@@ -1,12 +1,10 @@
 import { Tabs, useRouter, usePathname } from "expo-router";
 import { Platform, View, StyleSheet } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import MusicBar from "@/components/music/musicBar";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
@@ -17,46 +15,36 @@ export default function TabLayout() {
     const showMusicBar = !pathname.startsWith("/(player)");
 
     return (
-        <>
+        <SafeAreaView style={styles.container}>
             <Tabs
                 screenOptions={{
                     tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-                    headerShown: true,
-                    headerStyle: { height: 70 },
-                    headerTitleStyle: { marginLeft: 10 },
-                    tabBarButton: HapticTab,
+                    headerShown: false,
                     tabBarBackground: TabBarBackground,
-                    tabBarStyle: Platform.select({
-                        ios: { position: "absolute" },
-                        default: {},
-                    }),
+                    tabBarStyle: {
+                        display: "none"
+                    }
                 }}
             >
-                <Tabs.Screen
-                    name="radioStationList"
-                    options={{
-                        title: "Stations",
-                        tabBarIcon: ({ color }) => (
-                            <MaterialIcons name="radio" size={24} color={color} />
-                        ),
-                    }}
-                />
             </Tabs>
 
             {/* Floating Music Bar */}
             {showMusicBar && (
-                <View style={[styles.musicBarWrapper, { bottom: insets.bottom + 40 }]}>
+                <View style={[styles.musicBarWrapper, { bottom: insets.bottom  }]}>
                     <MusicBar onPress={() => router.push("/(player)/player")} />
                 </View>
             )}
-        </>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     musicBarWrapper: {
         position: "absolute",
-        left: 10,
-        right: 10,
+        left: 5,
+        right: 5,
     },
+    container: {
+        flex: 1
+    }
 });

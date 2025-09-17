@@ -34,6 +34,6 @@ export default RadioListItem;
 
 const styles = StyleSheet.create({
     card: { width: 150, marginRight: 5, alignItems: "center" },
-    image: { width: 150, height: 240, padding: 10, borderRadius: 12 },
+    image: { width: 170, height: 170, padding: 10, borderRadius: 12 },
     text: { color: "#fff", marginTop: 8, paddingHorizontal: 10, paddingTop: 5, paddingBottom: 15, fontSize: 14, fontWeight: "bold", textAlign: "center" }
 });

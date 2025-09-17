@@ -4,7 +4,7 @@ export default function PlayerLayout() {
     return (
         <Stack
             screenOptions={{
-                headerShown: false, // immersive player
+                headerShown: false,
             }}
         />
     );
