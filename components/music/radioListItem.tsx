@@ -17,7 +17,8 @@ const RadioListItem = ({ station }: { station: RadioStation }) => {
             <View style={styles.card}>
                 <Image
                     source={{
-                        uri: station.favicon || "https://images.pexels.com/photos/6368899/pexels-photo-6368899.jpeg"
+                        uri: station.favicon?.trim() ? station.favicon : "https://images.pexels.com/photos/6368899/pexels-photo-6368899.jpeg"
+
                     }}
                     style={styles.image}
                     contentFit="cover"
