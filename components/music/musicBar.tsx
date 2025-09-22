@@ -5,7 +5,7 @@ import { useRadio } from "@/context/RadioContext";
 import { BlurView } from "expo-blur";
 
 const MusicBar = ({ onPress }: { onPress: () => void }) => {
-    const { currentStation, playNext, playPrev, togglePlayPause, isPlaying } = useRadio();
+    const { currentStation, playNext, playPrev, togglePlayPause, isPlaying } = useRadio()
 
     const swipeGesture = Gesture.Pan()
         .onEnd((event) => {
@@ -13,7 +13,7 @@ const MusicBar = ({ onPress }: { onPress: () => void }) => {
             if (translationX < -50) playNext()
             else if (translationX > 50) playPrev()
         })
-        .runOnJS(true);
+        .runOnJS(true)
 
     if (!currentStation) return null
 
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     info: { flex: 1, marginRight: 10 },
     title: { color: "#fff", fontSize: 14, fontWeight: "bold" },
     playPauseButton: { paddingHorizontal: 5 },
-});
+})

@@ -6,13 +6,13 @@ import {
     ImageBackground,
     Pressable,
     ActivityIndicator,
-} from "react-native";
-import {Gesture, GestureDetector} from "react-native-gesture-handler";
-import {useRadio} from "@/context/RadioContext";
-import {AntDesign, Feather} from "@expo/vector-icons";
-import {useRouter} from "expo-router";
+} from "react-native"
+import {Gesture, GestureDetector} from "react-native-gesture-handler"
+import {useRadio} from "@/context/RadioContext"
+import {AntDesign, Feather} from "@expo/vector-icons"
+import {useRouter} from "expo-router"
 
-const DEFAULT_IMAGE = "https://www.pexels.com/photo/pink-petaled-flowers-closeup-photo-992734/"; // default fallback image
+const DEFAULT_IMAGE = "https://images.pexels.com/photos/992734/pexels-photo-992734.jpeg"
 
 const Player = () => {
     const {
@@ -22,30 +22,32 @@ const Player = () => {
         togglePlayPause,
         isPlaying,
         isBuffering,
-    } = useRadio();
+    } = useRadio()
 
-    const router = useRouter();
+    const router = useRouter()
 
     // Swipe gesture for next/previous tracks
     const panGesture = Gesture.Pan()
         .onEnd((event) => {
-            const {translationX} = event;
-            if (translationX < -50) playNext();
-            else if (translationX > 50) playPrev();
+            const {translationX} = event
+            if (translationX < -50) playNext()
+            else if (translationX > 50) playPrev()
         })
-        .runOnJS(true);
+        .runOnJS(true)
 
-    if (!currentStation) return null;
+    if (!currentStation) return null
 
-    const stationImage = currentStation.favicon && currentStation.favicon !== ""
-        ? currentStation.favicon
-        : DEFAULT_IMAGE;
+    const stationImage =
+        currentStation.favicon && currentStation.favicon.trim() !== ""
+            ? currentStation.favicon
+            : DEFAULT_IMAGE
+
 
     return (
         <GestureDetector gesture={panGesture}>
             <View style={styles.container}>
                 <ImageBackground
-                    source={{uri: stationImage ? stationImage : DEFAULT_IMAGE}}
+                    source={{uri: stationImage}}
                     style={styles.background}
                     blurRadius={30}
                 >
@@ -94,10 +96,10 @@ const Player = () => {
                 </ImageBackground>
             </View>
         </GestureDetector>
-    );
-};
+    )
+}
 
-export default Player;
+export default Player
 
 const styles = StyleSheet.create({
     container: {
@@ -151,4 +153,4 @@ const styles = StyleSheet.create({
     loader: {
         marginVertical: 20,
     },
-});
+})

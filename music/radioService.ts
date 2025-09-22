@@ -1,6 +1,6 @@
 import {RadioStation} from "@/models/station";
 
-const API_URL = "https://de1.api.radio-browser.info/json/stations/bytag/lofi"
+const API_URL = "https://de2.api.radio-browser.info/json/stations/bytag/lofi"
 
 export const getStations = async (): Promise<RadioStation[]> => {
 
