@@ -1,8 +1,8 @@
 import { View, Text, Pressable, Image, StyleSheet } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
-import { useRadio } from "@/context/RadioContext";
-import { BlurView } from "expo-blur";
+import { Gesture, GestureDetector } from "react-native-gesture-handler"
+import { Ionicons } from "@expo/vector-icons"
+import { useRadio } from "@/context/RadioContext"
+import { BlurView } from "expo-blur"
 
 const MusicBar = ({ onPress }: { onPress: () => void }) => {
     const { currentStation, playNext, playPrev, togglePlayPause, isPlaying } = useRadio()
@@ -69,3 +69,11 @@ const styles = StyleSheet.create({
     title: { color: "#fff", fontSize: 14, fontWeight: "bold" },
     playPauseButton: { paddingHorizontal: 5 },
 })
+
+
+
+
+
+
+
+
