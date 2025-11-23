@@ -4,9 +4,22 @@ import {DarkTheme, DefaultTheme, ThemeProvider} from "@react-navigation/native";
 import {Stack} from "expo-router";
 import {StatusBar} from "expo-status-bar";
 import {useColorScheme} from "@/hooks/useColorScheme";
+import {useEffect} from "react";
+import {setAudioModeAsync} from "expo-audio";
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
+    useEffect(() => {
+       async function setupAudio() {
+           await setAudioModeAsync({
+               playsInSilentMode: true,
+               shouldPlayInBackground: true,
+               interruptionMode: "doNotMix",
+               interruptionModeAndroid: "doNotMix"
+           })
+       }
+       setupAudio()
+    }, [])
 
     return (
         <GestureHandlerRootView style={{flex: 1}}>
