@@ -7,10 +7,11 @@ import {
     Pressable,
     ActivityIndicator,
 } from "react-native"
-import {Gesture, GestureDetector} from "react-native-gesture-handler"
-import {useRadio} from "@/context/RadioContext"
-import {AntDesign, Feather} from "@expo/vector-icons"
-import {useRouter} from "expo-router"
+import { Gesture, GestureDetector } from "react-native-gesture-handler"
+import { useRadio } from "@/context/RadioContext"
+import { AntDesign, Feather, FontAwesome6 } from "@expo/vector-icons"
+import { useRouter } from "expo-router"
+
 
 const DEFAULT_IMAGE = "https://images.pexels.com/photos/992734/pexels-photo-992734.jpeg"
 
@@ -29,7 +30,7 @@ const Player = () => {
     // Swipe gesture for next/previous tracks
     const panGesture = Gesture.Pan()
         .onEnd((event) => {
-            const {translationX} = event
+            const { translationX } = event
             if (translationX < -50) playNext()
             else if (translationX > 50) playPrev()
         })
@@ -47,49 +48,49 @@ const Player = () => {
         <GestureDetector gesture={panGesture}>
             <View style={styles.container}>
                 <ImageBackground
-                    source={{uri: stationImage}}
+                    source={{ uri: stationImage }}
                     style={styles.background}
                     blurRadius={30}
                 >
                     {/* Dark overlay */}
-                    <View style={styles.overlay}/>
+                    <View style={styles.overlay} />
 
                     {/* Back Button */}
                     <Pressable style={styles.backButton} onPress={() => router.back()}>
-                        <Feather name="arrow-left" size={28} color="white"/>
+                        <Feather name="arrow-left" size={28} color="white" />
                     </Pressable>
 
                     {/* Main content */}
                     <View style={styles.content}>
-                        <Image source={{uri: stationImage}} style={styles.image}/>
+                        <Image source={{ uri: stationImage }} style={styles.image} />
 
                         <Text style={styles.text}>{currentStation.name}</Text>
 
                         {/* Show Loader when buffering */}
                         {isBuffering && (
-                            <ActivityIndicator size="large" color="#fff" style={styles.loader}/>
+                            <ActivityIndicator size="large" color="#fff" style={styles.loader} />
                         )}
 
                         {/* Controls Row */}
                         <View style={styles.controls}>
-                            <Pressable onPress={playPrev} disabled={isBuffering}>
-                                <Feather name="skip-back" size={50} color="white"/>
+                            <Pressable onPress={playPrev} disabled={isBuffering} style={styles.skipButton}>
+                                <Feather name="skip-back" size={44} color="white" />
                             </Pressable>
 
                             <Pressable
                                 onPress={!isBuffering ? togglePlayPause : undefined}
-                                style={[styles.playButton, isBuffering && {opacity: 0.5}]}
                                 disabled={isBuffering}
+                                style={[
+                                    styles.playButton,
+                                    isBuffering && { opacity: 0.5 }
+                                ]}
                             >
-                                <AntDesign
-                                    name={isPlaying ? "pause-circle" : "play-circle"}
-                                    size={80}
-                                    color="white"
-                                />
+                                <FontAwesome6 name={isPlaying ? "pause" : "play"} size={48} color="white" />
                             </Pressable>
 
-                            <Pressable onPress={playNext} disabled={isBuffering}>
-                                <Feather name="skip-forward" size={50} color="white"/>
+
+                            <Pressable onPress={playNext} disabled={isBuffering} style={styles.skipButton}>
+                                <Feather name="skip-forward" size={44} color="white" />
                             </Pressable>
                         </View>
                     </View>
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginBottom: 16
     },
-    placeholder: {backgroundColor: "#333"},
+    placeholder: { backgroundColor: "#333" },
     text: {
         color: "#fff",
         fontSize: 20,
@@ -142,13 +143,25 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     controls: {
+        width: "100%",
         flexDirection: "row",
         alignItems: "center",
-        gap: 40,
+        justifyContent: "center",
+        gap: 8,
         marginTop: 20,
+        paddingHorizontal: 30,
     },
     playButton: {
-        marginHorizontal: 20,
+        width: 110,
+        height: 110,
+        justifyContent: "center",
+        alignItems: "center",
+        flexShrink: 0,
+    },
+    skipButton: {
+        justifyContent: "center",
+        alignItems: "center",
+        flexShrink: 0,
     },
     loader: {
         marginVertical: 20,

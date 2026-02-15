@@ -1,5 +1,5 @@
 import React, {createContext, useState, useEffect, useContext} from "react"
-import {useAudioPlayer, useAudioPlayerStatus} from "expo-audio"
+import {setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus} from "expo-audio"
 import {RadioStation} from "@/models/station"
 
 import {getStations} from "@/music/radioService"
@@ -27,6 +27,13 @@ export const RadioProvider: React.FC<{ children: React.ReactNode }> = ({children
 
     // Initialize the music player
     const player = useAudioPlayer()
+    useEffect(() => {
+    setAudioModeAsync({
+        shouldPlayInBackground: true,
+        playsInSilentMode: true,
+    }) 
+ 
+    }, [])
     const status = useAudioPlayerStatus(player)
 
     // Fetch the radio stations
