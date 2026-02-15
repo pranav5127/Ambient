@@ -85,7 +85,12 @@ const Player = () => {
                                     isBuffering && { opacity: 0.5 }
                                 ]}
                             >
-                                <FontAwesome6 name={isPlaying ? "pause" : "play"} size={48} color="white" />
+                                <FontAwesome6 
+                                    name={isPlaying ? "pause" : "play"} 
+                                    size={48} 
+                                    color="white"
+                                    style={styles.playIcon}
+                                />
                             </Pressable>
 
 
@@ -157,6 +162,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexShrink: 0,
+        overflow: 'visible',
+    },
+    playIcon: {
+        width: 60,
+        textAlign: "center",
+        marginLeft: 4, 
     },
     skipButton: {
         justifyContent: "center",
