@@ -69,6 +69,10 @@ export const RadioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 artworkUrl: station.favicon || undefined,
             }, {})
         }
+
+        return () => {
+            player.clearLockScreenControls()
+        }
     }, [currentIndex, radios])
 
     const setCurrentStation = (station: RadioStation) => {
