@@ -9,7 +9,7 @@ import {
 } from "react-native"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import { useRadio } from "@/context/RadioContext"
-import { AntDesign, Feather, FontAwesome6 } from "@expo/vector-icons"
+import {Feather, FontAwesome6 } from "@expo/vector-icons"
 import { useRouter } from "expo-router"
 
 

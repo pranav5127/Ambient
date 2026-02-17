@@ -1,8 +1,8 @@
-import React, {createContext, useState, useEffect, useContext} from "react"
-import {setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus} from "expo-audio"
-import {RadioStation} from "@/models/station"
-
-import {getStations} from "@/music/radioService"
+import React, { createContext, useState, useEffect, useContext } from "react"
+import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from "expo-audio"
+import { RadioStation } from "@/models/station"
+import { Pressable } from "react-native"
+import { getStations } from "@/music/radioService"
 
 type RadioContextType = {
     radios: RadioStation[],
@@ -19,7 +19,7 @@ type RadioContextType = {
 
 const RadioContext = createContext<RadioContextType | undefined>(undefined)
 
-export const RadioProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+export const RadioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [radios, setRadios] = useState<RadioStation[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -28,12 +28,15 @@ export const RadioProvider: React.FC<{ children: React.ReactNode }> = ({children
     // Initialize the music player
     const player = useAudioPlayer()
     useEffect(() => {
-    setAudioModeAsync({
-        shouldPlayInBackground: true,
-        playsInSilentMode: true,
-    }) 
- 
+        setAudioModeAsync({
+            shouldPlayInBackground: true,
+            playsInSilentMode: true,
+            interruptionMode: "doNotMix",
+        })
+
     }, [])
+
+
     const status = useAudioPlayerStatus(player)
 
     // Fetch the radio stations
@@ -54,13 +57,17 @@ export const RadioProvider: React.FC<{ children: React.ReactNode }> = ({children
 
     useEffect(() => {
         if (currentIndex >= 0 && radios[currentIndex]) {
-            try {
-                const source = {uri: radios[currentIndex].url}
-                player.replace(source)
-                player.play()
-            } catch (e) {
-                setError("Audio player replace/play error")
-            }
+            const station = radios[currentIndex]
+
+            player.replace({ uri: station.url })
+            player.play()
+
+            // Activate notification bar & lock screen media controls
+            player.setActiveForLockScreen(true, {
+                title: station.name,
+                artist: station.tags || "Radio",
+                artworkUrl: station.favicon || undefined,
+            }, {})
         }
     }, [currentIndex, radios])
 
